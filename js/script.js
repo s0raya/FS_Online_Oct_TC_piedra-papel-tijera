@@ -38,6 +38,22 @@ function actualizarPuntuacion(jugadaUsuario, jugadaMaquina) {
         puntosUsuario++;
     } else if (jugadaUsuario === 'tijera' && jugadaMaquina === 'papel') {
         puntosUsuario++;
+    }else if (jugadaUsuario === 'lagarto' && jugadaMaquina === 'piedra') {
+        puntosOrdenador++;
+    } else if (jugadaUsuario === 'lagarto' && jugadaMaquina === 'papel') {
+        puntosUsuario++;
+    } else if (jugadaUsuario === 'lagarto' && jugadaMaquina === 'tijera') {
+        puntosOrdenador++;
+    }else if (jugadaUsuario === 'lagarto' && jugadaMaquina === 'spock') {
+        puntosUsuario++;
+    }else if (jugadaUsuario === 'spock' && jugadaMaquina === 'piedra') {
+        puntosUsuario++;
+    } else if (jugadaUsuario === 'spock' && jugadaMaquina === 'papel') {
+        puntosOrdenador++;
+    }else if (jugadaUsuario === 'spock' && jugadaMaquina === 'tijera') {
+        puntosUsuario++;
+    } else if (jugadaUsuario === 'spock' && jugadaMaquina === 'lagarto') {
+        puntosOrdenador++;
     }
     contadorUsuario.textContent = `Tus puntos: ${puntosUsuario}`;
     contadorOrdenador.textContent = `Puntos de la máquina: ${puntosOrdenador}`;
@@ -59,4 +75,4 @@ Array.from(jugada).forEach(function obtenerResultado(elemento) {
         actualizarPuntuacion(jugadaUsuario,jugadaMaquina);
         mostrarResultado(jugadaUsuario, jugadaMaquina);
     })
-})
+});
