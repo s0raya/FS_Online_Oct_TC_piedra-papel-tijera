@@ -1,22 +1,25 @@
-const jugada= document.getElementsByClassName("boton-jugada");
+//const jugada = document.getElementsByClassName("boton-jugada");
+
+const jugada = document.querySelectorAll('.boton-jugada');
+
 
 //Creada una constante con Opciones en un array
-const opciones= ["piedra", "papel", "tijera"];
+const opciones = ["piedra", "papel", "tijera"];
 
 //Creada una constante con Variables puntos ordenador
-var puntosOrdenador=0;
+let puntosOrdenador = 0;
 
 //Creada una constante con Variables puntos usuario
-var puntosUsuario=0;
+let puntosUsuario = 0;
 
 //Capturar resultados
-const resultado =document.getElementById("resultados");
+const resultado = document.getElementById("resultados");
 
 //Capturar contador-usuario
-const contadorUsuario=document.getElementById("contador-usuario");
+const contadorUsuario = document.getElementById("contador-usuario");
 
 //Capturar contador-ordenador
-const contadorOrdenador =document.getElementById("contador-ordenador");
+const contadorOrdenador = document.getElementById("contador-ordenador");
 
 
 //Crear una función mostrarResultado
@@ -57,22 +60,35 @@ function actualizarPuntuacion(jugadaUsuario, jugadaMaquina) {
     }
     contadorUsuario.textContent = `Tus puntos: ${puntosUsuario}`;
     contadorOrdenador.textContent = `Puntos de la máquina: ${puntosOrdenador}`;
-}
+};
 
 //Utilizar Math.random()?
 
 function jugadaAleatoria(minimo, maximo) {
     return opciones[Math.floor(Math.random() * (maximo - minimo) + minimo)];
-}
+};
 
 //Capturar los botones para usarlos (plantea usar un forEach) y hacer evento click
 //Crear una función obtenerResultado
 
-Array.from(jugada).forEach(function obtenerResultado(elemento) {
+/*Array.from(jugada).forEach(function obtenerResultado(elemento) {
     elemento.addEventListener('click',function() {
         let jugadaUsuario = this.getAttribute('data-jugada');
         let jugadaMaquina = jugadaAleatoria(0,3);
         actualizarPuntuacion(jugadaUsuario,jugadaMaquina);
         mostrarResultado(jugadaUsuario, jugadaMaquina);
     })
+});*/
+
+/* Antes no funcionaba solo con el forEach porque habia capturado 'jugada' con "getElementsByClassName", capturandolo con 
+"querySelectorAll", si que funciona de la forma de abajo; cambio también getAttribute por dataset */
+
+jugada.forEach(function obtenerResultado(boton){
+    boton.addEventListener('click',function() {
+        let jugadaUsuario = this.dataset.jugada;
+        let jugadaMaquina = jugadaAleatoria(0,3);
+        actualizarPuntuacion(jugadaUsuario,jugadaMaquina);
+        mostrarResultado(jugadaUsuario, jugadaMaquina);
 });
+});
+
