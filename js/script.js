@@ -4,7 +4,7 @@ const jugada = document.querySelectorAll('.boton-jugada');
 
 
 //Creada una constante con Opciones en un array
-const opciones = ["piedra", "papel", "tijera"];
+const opciones = ["piedra", "papel", "tijera", "lagarto", "spock"];
 
 //Creada una constante con Variables puntos ordenador
 let puntosOrdenador = 0;
@@ -89,6 +89,6 @@ jugada.forEach(function obtenerResultado(boton){
         let jugadaMaquina = jugadaAleatoria(0,3);
         actualizarPuntuacion(jugadaUsuario,jugadaMaquina);
         mostrarResultado(jugadaUsuario, jugadaMaquina);
-});
+    });
 });
 
