@@ -9,7 +9,14 @@ let puntosOrdenador = 0;
 let puntosUsuario = 0;
 
 function mostrarResultado(a, b){
-    resultado.innerHTML = `El usuario ha elegido ${a} y el ordenador ${b}`
+    resultado.innerHTML = `El usuario ha elegido ${a} y el ordenador ${b}, por lo tanto: `;
+    if (a === b) {
+        resultado.innerHTML += "Empate";
+    } else if ((a === 'piedra' && b === 'tijera') || (a === 'papel' && b === 'piedra') || (a === 'tijera' && b === 'papel') || (a === 'lagarto' && b === 'spock') || (a === 'spock' && b === 'tijera')) {
+        resultado.innerHTML += "Gana el usuario";
+    } else {
+        resultado.innerHTML += "Gana la máquina";
+    }
 };
 
 function actualizarPuntuacion(jugadaUsuario, jugadaMaquina) {
