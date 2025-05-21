@@ -54,17 +54,6 @@ La lógica del juego sigue esta estructura:
 
 ---
 
-## 💡 Consejos para mejorar el código
-
-✔️ Usa `dataset` para acceder a los valores de cada botón.<br>
-✔️ Implementa `forEach` para asignar eventos a los botones de jugada.<br>
-✔️ Mejora la aleatoriedad de la computadora con `Math.random()`.<br>
-✔️ Personaliza el diseño del juego en CSS para hacerlo más atractivo.<br>
-✔️ Divide las funcionalidades en funciones modulares para un código más limpio y reutilizable.<br>
-✔️ Usa un **objeto de reglas** para simplificar la lógica de comparación.
-
----
-
 ## 📌 Próximas mejoras
 
 🔹 Añadir animaciones para transiciones más fluidas.<br>
