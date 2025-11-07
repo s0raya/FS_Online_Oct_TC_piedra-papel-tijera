@@ -8,64 +8,54 @@ const opciones = ["piedra", "papel", "tijera", "lagarto", "spock"];
 let puntosOrdenador = 0;
 let puntosUsuario = 0;
 
-function mostrarResultado(a, b){
-    resultado.innerHTML = `El usuario ha elegido ${a} y el ordenador ${b}, por lo tanto: `;
-    if (a === b) {
-        resultado.innerHTML += "Empate";
-    } else if ((a === 'piedra' && b === 'tijera') || (a === 'papel' && b === 'piedra') || (a === 'tijera' && b === 'papel') || (a === 'lagarto' && b === 'spock') || (a === 'spock' && b === 'tijera')) {
-        resultado.innerHTML += "Gana el usuario";
-    } else {
-        resultado.innerHTML += "Gana la máquina";
-    }
+const reglas = {
+    piedra: ["tijera", "lagarto"],
+    papel: ["piedra", "spock"],
+    tijera: ["papel", "lagarto"],
+    lagarto: ["spock", "papel"],
+    spock: ["tijera", "piedra"]
+}
+
+function resultadoRonda(jugadaUsuario, jugadaMaquina) {
+    if (jugadaUsuario === jugadaMaquina) return "empate";
+    if (reglas[jugadaUsuario].includes(jugadaMaquina)) return "usuario";
+    return "maquina"
+}
+
+function mostrarResultado(a, b, ganador){
+    let mensaje = `El usuario ha elegido ${a} y el ordenador ${b}, por lo tanto: `
+
+    if (ganador === "empate") mensaje += "Empate";
+    else if (ganador === "usuario") mensaje += "Gana el usuario";
+    else mensaje += "Gana la máquina";
+
+    resultado.textContent = mensaje;
 };
 
-function actualizarPuntuacion(jugadaUsuario, jugadaMaquina) {
-    if (jugadaUsuario === 'piedra' && jugadaMaquina === 'papel'){
-        puntosOrdenador++;
-    }else if (jugadaUsuario === 'piedra' && jugadaMaquina === 'tijera') {
-        puntosUsuario++;
-    }else if (jugadaUsuario === 'papel' && jugadaMaquina === 'piedra') {
-        puntosUsuario++;
-    } else if (jugadaUsuario === 'papel' && jugadaMaquina === 'tijera') {
-        puntosOrdenador++;
-    }else if (jugadaUsuario === 'tijera' && jugadaMaquina === 'piedra') {
-        puntosUsuario++;
-    } else if (jugadaUsuario === 'tijera' && jugadaMaquina === 'papel') {
-        puntosUsuario++;
-    }else if (jugadaUsuario === 'lagarto' && jugadaMaquina === 'piedra') {
-        puntosOrdenador++;
-    } else if (jugadaUsuario === 'lagarto' && jugadaMaquina === 'papel') {
-        puntosUsuario++;
-    } else if (jugadaUsuario === 'lagarto' && jugadaMaquina === 'tijera') {
-        puntosOrdenador++;
-    }else if (jugadaUsuario === 'lagarto' && jugadaMaquina === 'spock') {
-        puntosUsuario++;
-    }else if (jugadaUsuario === 'spock' && jugadaMaquina === 'piedra') {
-        puntosUsuario++;
-    } else if (jugadaUsuario === 'spock' && jugadaMaquina === 'papel') {
-        puntosOrdenador++;
-    }else if (jugadaUsuario === 'spock' && jugadaMaquina === 'tijera') {
-        puntosUsuario++;
-    } else if (jugadaUsuario === 'spock' && jugadaMaquina === 'lagarto') {
-        puntosOrdenador++;
-    }
+function actualizarPuntuacion(ganador) {
+    if (ganador === "usuario") puntosUsuario++;
+    else if (ganador === "maquina") puntosOrdenador++;
+
     contadorUsuario.textContent = `Tus puntos: ${puntosUsuario}`;
     contadorOrdenador.textContent = `Puntos de la máquina: ${puntosOrdenador}`;
 };
 
 
-function jugadaAleatoria(minimo, maximo) {
-    return opciones[Math.floor(Math.random() * (maximo - minimo) + minimo)];
+function jugadaAleatoria() {
+    return opciones[Math.floor(Math.random() * opciones.length)];
 };
 
 //Crear una función obtenerResultado
 
-jugada.forEach(function obtenerResultado(boton){
-    boton.addEventListener('click',function() {
-        let jugadaUsuario = this.dataset.jugada;
-        let jugadaMaquina = jugadaAleatoria(0,3);
-        actualizarPuntuacion(jugadaUsuario,jugadaMaquina);
-        mostrarResultado(jugadaUsuario, jugadaMaquina);
+jugada.forEach(boton => {
+    boton.addEventListener('click', () => {
+        let jugadaUsuario = boton.dataset.jugada;
+        let jugadaMaquina = jugadaAleatoria();
+
+        const ganador = resultadoRonda(jugadaUsuario, jugadaMaquina);
+
+        actualizarPuntuacion(ganador);
+        mostrarResultado(jugadaUsuario, jugadaMaquina, ganador);
     });
 });
 
